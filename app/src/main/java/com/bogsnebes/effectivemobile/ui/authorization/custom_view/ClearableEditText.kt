@@ -10,12 +10,14 @@ import androidx.core.graphics.drawable.DrawableCompat
 import com.bogsnebes.effectivemobile.R
 import com.google.android.material.textfield.TextInputEditText
 
-class ClearableEditText(context: Context, attrs: AttributeSet) : TextInputEditText(context, attrs) {
+open class ClearableEditText(context: Context, attrs: AttributeSet) :
+    TextInputEditText(context, attrs) {
 
     private var clearIcon: Drawable? = null
 
     init {
-        clearIcon = ContextCompat.getDrawable(context, R.drawable.ic_clear) // Замените на вашу иконку
+        clearIcon =
+            ContextCompat.getDrawable(context, R.drawable.ic_clear) // Замените на вашу иконку
         clearIcon?.let {
             DrawableCompat.setTint(it, currentHintTextColor)
             it.setBounds(0, 0, it.intrinsicWidth, it.intrinsicHeight)
@@ -42,9 +44,9 @@ class ClearableEditText(context: Context, attrs: AttributeSet) : TextInputEditTe
 
         toggleClearIcon(false)
     }
-    private fun toggleClearIcon(show: Boolean) {
+
+    protected fun toggleClearIcon(show: Boolean) {
         clearIcon = if (show) ContextCompat.getDrawable(context, R.drawable.ic_clear) else null
         setCompoundDrawablesWithIntrinsicBounds(null, null, clearIcon, null)
     }
-
 }

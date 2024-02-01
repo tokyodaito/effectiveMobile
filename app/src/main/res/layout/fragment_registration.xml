@@ -55,6 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/clearableEditText3" />
 
     <com.bogsnebes.effectivemobile.ui.authorization.custom_view.ActiveButton
+        android:id="@+id/active_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -65,12 +66,15 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="95dp"
+        android:layout_marginEnd="95dp"
         android:layout_marginBottom="16dp"
         android:text="TextView"
-        android:textColor="#A0A1A3"
+        android:textAlignment="center"
         android:textSize="10sp"
+        android:textColor="@color/terms_of_use"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

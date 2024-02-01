@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Effective Mobile</string>
     <string name="entrance">Вход</string>
+    <string name="terms_of_use">Нажимая кнопку "Войти", вы принимаете условия программы лояльности</string>
 </resources>

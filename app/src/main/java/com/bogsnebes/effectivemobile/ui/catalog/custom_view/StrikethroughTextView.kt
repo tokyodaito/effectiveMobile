@@ -18,9 +18,14 @@ class StrikethroughTextView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+        // Начальные координаты (нижний левый угол)
         val startX = 0f
-        val endX = width.toFloat()
-        val lineY = height / 2f + (paint.descent() + paint.ascent()) / 2
-        canvas?.drawLine(startX, lineY, endX, lineY, linePaint)
+        val startY = height.toFloat() - 20
+        // Конечные координаты (правый верхний угол)
+        val endX = width.toFloat() + 130
+        val endY = 0f
+
+        // Рисование линии от нижнего левого до верхнего правого угла
+        canvas?.drawLine(startX, startY, endX, endY, linePaint)
     }
 }

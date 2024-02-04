@@ -1,10 +1,12 @@
-package com.bogsnebes.effectivemobile
+package com.bogsnebes.effectivemobile.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bogsnebes.effectivemobile.R
 import com.bogsnebes.effectivemobile.databinding.ActivityMainBinding
 import com.bogsnebes.effectivemobile.ui.authorization.AuthorizationFragment
 import com.bogsnebes.effectivemobile.ui.catalog.CatalogFragment
+import com.bogsnebes.effectivemobile.ui.information.InformationFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -17,8 +19,9 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) { // Проверка, чтобы избежать пересоздания фрагмента при каждом вызове onCreate
             val authorizationFragment = AuthorizationFragment.newInstance()
             val catalogFragment = CatalogFragment.newInstance()
+            val informationFragment = InformationFragment.newInstance()
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container_view_tag, catalogFragment)
+                .add(R.id.fragment_container_view_tag, informationFragment)
                 .commit()
         }
     }

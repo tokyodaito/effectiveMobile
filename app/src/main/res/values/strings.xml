@@ -4,4 +4,6 @@
     <string name="catalog">Каталог</string>
     <string name="terms_of_use">Нажимая кнопку "Войти", вы принимаете условия программы лояльности</string>
     <string name="filter_button">Фильтры</string>
+    <string name="show_more">Подробнее</string>
+    <string name="hide">Скрыть</string>
 </resources>

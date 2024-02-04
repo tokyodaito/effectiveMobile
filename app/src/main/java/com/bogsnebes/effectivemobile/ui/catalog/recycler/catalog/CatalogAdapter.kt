@@ -44,9 +44,9 @@ class CatalogAdapter(private val items: List<CatalogItem>) :
 
     override fun onBindViewHolder(holder: CatalogViewHolder, position: Int) {
         val item = items[position]
-        holder.priceTextView.text = item.price
-        holder.discountPriceTextView.text = item.discountPrice
-        holder.discountTextView.text = item.discountPercentage
+        holder.priceTextView.text = "${item.price} ₽"
+        holder.discountPriceTextView.text = "${item.discountPrice} ₽"
+        holder.discountTextView.text = "- ${item.discountPercentage}%"
         holder.nameTextView.text = item.productName
         holder.description.text = item.productDescription
         holder.markTextView.text = item.rating

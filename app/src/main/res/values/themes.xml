@@ -6,4 +6,11 @@
     </style>
 
     <style name="Theme.EffectiveMobile" parent="Base.Theme.EffectiveMobile" />
+
+    <style name="SpinnerTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#3E3E3E</item>
+    </style>
+
+
 </resources>

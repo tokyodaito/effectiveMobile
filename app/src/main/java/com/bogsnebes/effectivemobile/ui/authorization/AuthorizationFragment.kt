@@ -90,11 +90,9 @@ class AuthorizationFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-
     }
 
     companion object {
-        val fullText = "Нажимая кнопку \"Войти\", вы принимаете условия программы лояльности"
         fun newInstance(): AuthorizationFragment = AuthorizationFragment()
     }
 }

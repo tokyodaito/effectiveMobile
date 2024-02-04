@@ -1,4 +1,4 @@
-package com.bogsnebes.effectivemobile.ui.catalog.recycler
+package com.bogsnebes.effectivemobile.ui.catalog.recycler.tags
 
 data class Tag(
     val name: String,

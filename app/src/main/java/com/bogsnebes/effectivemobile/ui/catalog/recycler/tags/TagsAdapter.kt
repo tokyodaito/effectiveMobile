@@ -1,4 +1,4 @@
-package com.bogsnebes.effectivemobile.ui.catalog.recycler
+package com.bogsnebes.effectivemobile.ui.catalog.recycler.tags
 
 import android.view.LayoutInflater
 import android.view.View

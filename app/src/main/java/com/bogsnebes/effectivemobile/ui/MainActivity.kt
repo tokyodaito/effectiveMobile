@@ -65,8 +65,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hasUserData(): Boolean {
-        val sharedPreferences = getSharedPreferences("MySharedPreferences", Context.MODE_PRIVATE)
-        return sharedPreferences.contains("editText2")
+        val sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        return sharedPreferences.contains("name")
     }
 
     private fun openCatalogFragment() {

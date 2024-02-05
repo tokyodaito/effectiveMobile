@@ -12,5 +12,12 @@
         <item name="android:textColor">#3E3E3E</item>
     </style>
 
+    <style name="BottomNavigationViewStyle" parent="Widget.Design.BottomNavigationView">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/bottom_nav_colors</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 
 </resources>

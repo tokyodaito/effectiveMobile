@@ -58,7 +58,6 @@
                 android:layout_marginTop="6dp"
                 android:textColor="@color/category_item"
                 android:textSize="10sp"
-                android:visibility=""
                 tools:text="A`PIEU" />
         </LinearLayout>
 
@@ -103,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                tools:text="A`PIEU" />
+                android:text="Избранное" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -150,7 +149,7 @@
             android:layout_weight="1"
             android:textColor="@color/black"
             android:textSize="14sp"
-            tools:text="A`PIEU" />
+            android:text="Магазины" />
 
         <ImageView
             android:layout_width="10dp"
@@ -188,7 +187,7 @@
             android:layout_weight="1"
             android:textColor="@color/black"
             android:textSize="14sp"
-            tools:text="A`PIEU" />
+            android:text="Обратная связь" />
 
         <ImageView
             android:layout_width="10dp"
@@ -226,7 +225,7 @@
             android:layout_weight="1"
             android:textColor="@color/black"
             android:textSize="14sp"
-            tools:text="A`PIEU" />
+            android:text="Оферта " />
 
         <ImageView
             android:layout_width="10dp"
@@ -264,7 +263,7 @@
             android:layout_weight="1"
             android:textColor="@color/black"
             android:textSize="14sp"
-            tools:text="A`PIEU" />
+            android:text="Возврат товара" />
 
         <ImageView
             android:layout_width="10dp"

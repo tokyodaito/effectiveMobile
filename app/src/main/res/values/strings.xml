@@ -6,4 +6,9 @@
     <string name="filter_button">Фильтры</string>
     <string name="show_more">Подробнее</string>
     <string name="hide">Скрыть</string>
+    <string name="title_home">Главная</string>
+    <string name="title_catalog">Каталог</string>
+    <string name="title_basket">Корзина</string>
+    <string name="title_sales">Акции</string>
+    <string name="title_profile">Профиль</string>
 </resources>

@@ -10,7 +10,9 @@ import com.bogsnebes.effectivemobile.databinding.ActivityMainBinding
 import com.bogsnebes.effectivemobile.ui.authorization.AuthorizationFragment
 import com.bogsnebes.effectivemobile.ui.cabinet.CabinetFragment
 import com.bogsnebes.effectivemobile.ui.catalog.CatalogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 

@@ -3,4 +3,10 @@
     <declare-styleable name="ActiveButton">
         <attr name="active" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="CustomButtonView">
+        <attr name="titleText" format="string" />
+        <attr name="subtitleText" format="string" />
+        <attr name="startIcon" format="reference" />
+        <attr name="endIcon" format="reference" />
+    </declare-styleable>
 </resources>

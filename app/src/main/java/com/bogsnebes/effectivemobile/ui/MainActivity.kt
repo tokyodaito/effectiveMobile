@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bogsnebes.effectivemobile.R
 import com.bogsnebes.effectivemobile.databinding.ActivityMainBinding
 import com.bogsnebes.effectivemobile.ui.authorization.AuthorizationFragment
+import com.bogsnebes.effectivemobile.ui.cabinet.CabinetFragment
 import com.bogsnebes.effectivemobile.ui.catalog.CatalogFragment
 import com.bogsnebes.effectivemobile.ui.information.InformationFragment
 
@@ -20,8 +21,9 @@ class MainActivity : AppCompatActivity() {
             val authorizationFragment = AuthorizationFragment.newInstance()
             val catalogFragment = CatalogFragment.newInstance()
             val informationFragment = InformationFragment.newInstance()
+            val cabinetFragment = CabinetFragment.newInstance()
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container_view_tag, informationFragment)
+                .add(R.id.fragment_container_view_tag, cabinetFragment)
                 .commit()
         }
     }

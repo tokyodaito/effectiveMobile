@@ -14,13 +14,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.bogsnebes.effectivemobile.R
 import com.bogsnebes.effectivemobile.databinding.FragmentRegistrationBinding
+import com.bogsnebes.effectivemobile.ui.MainActivity
+import com.bogsnebes.effectivemobile.ui.catalog.CatalogFragment
 
 class AuthorizationFragment : Fragment() {
 
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: AuthorizationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +40,7 @@ class AuthorizationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupClickableSpan()
         setupTextWatchers()
+        setupSavePreferences()
     }
 
     private fun setupClickableSpan() {
@@ -90,6 +96,28 @@ class AuthorizationFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setupSavePreferences() {
+        binding.activeButton.setOnClickListener {
+            val editText2Text = binding.clearableEditText2.text.toString()
+            val editText3Text = binding.clearableEditText3.text.toString()
+            val maskedEditTextText = binding.maskedEditText.text.toString()
+
+            viewModel.saveUserData(editText2Text, editText3Text, maskedEditTextText)
+            openNextFragment()
+            (activity as? MainActivity)?.showBottomNav(true)
+        }
+    }
+
+    private fun openNextFragment() {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(
+                R.id.fragment_container_view_tag,
+                CatalogFragment.newInstance()
+            )
+            commit()
+        }
     }
 
     companion object {

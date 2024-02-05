@@ -7,11 +7,19 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view_tag"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:visibility="gone" />
 
     <View
         android:layout_width="match_parent"

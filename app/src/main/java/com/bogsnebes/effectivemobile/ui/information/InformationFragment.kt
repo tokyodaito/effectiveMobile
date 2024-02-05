@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bogsnebes.effectivemobile.databinding.FragmentInformationAboutItemBinding
+import com.bogsnebes.effectivemobile.ui.MainActivity
 import com.bogsnebes.effectivemobile.ui.catalog.recycler.catalog.recycler.HorizontalImagesAdapter
 
 class InformationFragment : Fragment() {
@@ -23,6 +24,9 @@ class InformationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (activity is MainActivity) {
+            (activity as MainActivity).showProgressBar(false)
+        }
         binding.ratingView.estimation = 4.3f
         val imagesAdapter = HorizontalImagesAdapter(
             listOf(

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bogsnebes.effectivemobile.databinding.FragmentCatalogBinding
+import com.bogsnebes.effectivemobile.ui.MainActivity
 import com.bogsnebes.effectivemobile.ui.catalog.custom_view.CustomSpinnerAdapter
 import com.bogsnebes.effectivemobile.ui.catalog.recycler.catalog.CatalogAdapter
 import com.bogsnebes.effectivemobile.ui.catalog.recycler.catalog.CatalogItem
@@ -36,6 +37,10 @@ class CatalogFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (activity is MainActivity) {
+            (activity as MainActivity).showProgressBar(false)
+        }
+
         initSpinner()
         setupTagsRecyclerView()
         setupCatalogRecyclerView()

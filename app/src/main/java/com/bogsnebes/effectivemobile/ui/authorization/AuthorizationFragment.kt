@@ -38,6 +38,10 @@ class AuthorizationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (activity is MainActivity) {
+            (activity as MainActivity).showProgressBar(false)
+        }
+
         setupClickableSpan()
         setupTextWatchers()
         setupSavePreferences()
@@ -106,7 +110,9 @@ class AuthorizationFragment : Fragment() {
 
             viewModel.saveUserData(editText2Text, editText3Text, maskedEditTextText)
             openNextFragment()
-            (activity as? MainActivity)?.showBottomNav(true)
+            (activity as? MainActivity)?.let {
+                it.showBottomNav(true)
+            }
         }
     }
 

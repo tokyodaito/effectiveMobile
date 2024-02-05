@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bogsnebes.effectivemobile.R
 import com.bogsnebes.effectivemobile.databinding.ActivityMainBinding
 import com.bogsnebes.effectivemobile.ui.authorization.AuthorizationFragment
+import com.bogsnebes.effectivemobile.ui.cabinet.CabinetFragment
 import com.bogsnebes.effectivemobile.ui.catalog.CatalogFragment
 
 class MainActivity : AppCompatActivity() {
@@ -17,12 +18,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        showBottomNav(false)
 
         if (savedInstanceState == null) {
             if (hasUserData()) {
                 openCatalogFragment()
+                showBottomNav(true)
+                binding.bottomNavigation.selectedItemId = R.id.navigation_catalog
             } else {
                 openAuthorizationFragment()
+                binding.bottomNavigation.selectedItemId = R.id.navigation_catalog
+                showBottomNav(false)
             }
         }
 
@@ -34,10 +40,25 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_catalog -> {
-                    // Обработка выбора "Каталог"
+                    openCatalogFragment()
                     true
                 }
-                // Добавьте остальные пункты аналогично
+
+                R.id.navigation_basket -> {
+                    Toast.makeText(this, "Заглушка", Toast.LENGTH_SHORT).show()
+                    true
+                }
+
+                R.id.navigation_sales -> {
+                    Toast.makeText(this, "Заглушка", Toast.LENGTH_SHORT).show()
+                    true
+                }
+
+                R.id.navigation_profile -> {
+                    openCabinetFragment()
+                    true
+                }
+
                 else -> false
             }
         }
@@ -49,20 +70,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openCatalogFragment() {
+        showProgressBar(true)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view_tag, CatalogFragment.newInstance())
             .commit()
-        showBottomNav(true)
+    }
+
+    private fun openCabinetFragment() {
+        showProgressBar(true)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view_tag, CabinetFragment.newInstance())
+            .commit()
     }
 
     private fun openAuthorizationFragment() {
+        showProgressBar(true)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view_tag, AuthorizationFragment.newInstance())
             .commit()
-        showBottomNav(false)
     }
 
     fun showBottomNav(show: Boolean) {
         binding.bottomNavigation.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    fun showProgressBar(show: Boolean) {
+        binding.fragmentContainerViewTag.visibility = if (show) View.GONE else View.VISIBLE
+        binding.progressBar.visibility = if (show) View.VISIBLE else View.GONE
     }
 }

@@ -1,9 +1,9 @@
 package com.bogsnebes.effectivemobile.model.impl
 
-import com.bogsnebes.effectivemobile.model.database.FavoriteProduct
-import com.bogsnebes.effectivemobile.model.database.FavoritesDao
-import com.bogsnebes.effectivemobile.model.network.ProductResponse
+import com.bogsnebes.effectivemobile.model.database.dao.FavoritesDao
+import com.bogsnebes.effectivemobile.model.database.dto.FavoriteProduct
 import com.bogsnebes.effectivemobile.model.network.ProductService
+import com.bogsnebes.effectivemobile.model.network.response.ProductResponse
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject

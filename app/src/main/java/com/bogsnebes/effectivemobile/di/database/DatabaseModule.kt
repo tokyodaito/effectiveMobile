@@ -3,7 +3,7 @@ package com.bogsnebes.effectivemobile.di.database
 import android.content.Context
 import androidx.room.Room
 import com.bogsnebes.effectivemobile.model.database.AppDatabase
-import com.bogsnebes.effectivemobile.model.database.FavoritesDao
+import com.bogsnebes.effectivemobile.model.database.dao.FavoritesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

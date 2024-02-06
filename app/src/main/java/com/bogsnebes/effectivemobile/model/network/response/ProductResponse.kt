@@ -1,4 +1,4 @@
-package com.bogsnebes.effectivemobile.model.network
+package com.bogsnebes.effectivemobile.model.network.response
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

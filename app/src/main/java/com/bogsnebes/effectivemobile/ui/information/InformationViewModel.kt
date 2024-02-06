@@ -1,7 +1,7 @@
 package com.bogsnebes.effectivemobile.ui.information
 
 import androidx.lifecycle.ViewModel
-import com.bogsnebes.effectivemobile.model.database.FavoriteProduct
+import com.bogsnebes.effectivemobile.model.database.dto.FavoriteProduct
 import com.bogsnebes.effectivemobile.model.impl.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers

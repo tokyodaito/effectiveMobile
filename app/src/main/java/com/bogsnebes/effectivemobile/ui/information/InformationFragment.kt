@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bogsnebes.effectivemobile.R
 import com.bogsnebes.effectivemobile.databinding.FragmentInformationAboutItemBinding
-import com.bogsnebes.effectivemobile.model.network.ProductInfo
+import com.bogsnebes.effectivemobile.model.network.response.ProductInfo
 import com.bogsnebes.effectivemobile.ui.MainActivity
 import com.bogsnebes.effectivemobile.ui.catalog.CatalogItem
 import com.bogsnebes.effectivemobile.ui.catalog.recycler.catalog.recycler.HorizontalImagesAdapter

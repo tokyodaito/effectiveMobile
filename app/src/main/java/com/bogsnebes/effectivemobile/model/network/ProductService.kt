@@ -1,5 +1,6 @@
 package com.bogsnebes.effectivemobile.model.network
 
+import com.bogsnebes.effectivemobile.model.network.response.ProductResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 

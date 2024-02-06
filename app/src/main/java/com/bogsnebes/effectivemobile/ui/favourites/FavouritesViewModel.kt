@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bogsnebes.effectivemobile.R
-import com.bogsnebes.effectivemobile.model.database.FavoriteProduct
+import com.bogsnebes.effectivemobile.model.database.dto.FavoriteProduct
 import com.bogsnebes.effectivemobile.model.impl.ProductRepository
 import com.bogsnebes.effectivemobile.ui.catalog.CatalogItem
 import dagger.hilt.android.lifecycle.HiltViewModel

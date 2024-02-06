@@ -1,10 +1,11 @@
-package com.bogsnebes.effectivemobile.model.database
+package com.bogsnebes.effectivemobile.model.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.bogsnebes.effectivemobile.model.database.dto.FavoriteProduct
 import io.reactivex.Completable
 import io.reactivex.Single
 

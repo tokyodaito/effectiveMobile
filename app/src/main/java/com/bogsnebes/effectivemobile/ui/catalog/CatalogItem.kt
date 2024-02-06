@@ -1,7 +1,7 @@
 package com.bogsnebes.effectivemobile.ui.catalog
 
 import android.os.Parcelable
-import com.bogsnebes.effectivemobile.model.network.ProductItem
+import com.bogsnebes.effectivemobile.model.network.response.ProductItem
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

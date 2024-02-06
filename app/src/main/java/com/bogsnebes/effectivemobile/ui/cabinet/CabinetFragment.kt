@@ -40,7 +40,7 @@ class CabinetFragment : Fragment() {
 
     private fun setupUserData() {
         with(binding) {
-            name.text = "${viewModel.getName()} + ${viewModel.getSurname()}"
+            name.text = "${viewModel.getName()} ${viewModel.getSurname()}"
             phoneNumber.text = viewModel.getPhone()
             viewModel.countOfFavorites.observe(viewLifecycleOwner) { count ->
                 countOfItems.text = resources.getQuantityString(R.plurals.items_count, count, count)

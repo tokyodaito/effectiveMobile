@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.bogsnebes.effectivemobile.R
 import com.bogsnebes.effectivemobile.databinding.FragmentInformationAboutItemBinding
 import com.bogsnebes.effectivemobile.ui.MainActivity
 import com.bogsnebes.effectivemobile.ui.catalog.recycler.catalog.recycler.HorizontalImagesAdapter
@@ -30,9 +31,9 @@ class InformationFragment : Fragment() {
         binding.ratingView.estimation = 4.3f
         val imagesAdapter = HorizontalImagesAdapter(
             listOf(
-                "https://i.pinimg.com/736x/83/11/0c/83110c6604f80210bfce7171ca7b2024.jpg",
-                "https://sun9-79.userapi.com/c237131/u34601202/d58/-3/o_5d7bb888c0.jpg",
-                "https://lh3.googleusercontent.com/proxy/QecnzfvHUlWK7bCofjGAcGK8lM1U56EBtFiJS2fTs3rDk5j4TeFMVwN8RluPZ3JEpQEBsQ9eenZqFtoiUn25Gt6dTSqysnIYlqs"
+                R.drawable.image_1,
+                R.drawable.image_1,
+                R.drawable.image_1
             ),
             binding.indicatorsLayout
         )

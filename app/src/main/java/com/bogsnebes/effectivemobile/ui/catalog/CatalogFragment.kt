@@ -65,7 +65,8 @@ class CatalogFragment : Fragment() {
         override fun onItemSelected(
             parent: AdapterView<*>, view: View?, position: Int, id: Long
         ) {
-            // Реализация логики при выборе элемента
+            val sortType = parent.getItemAtPosition(position).toString()
+            viewModel.sortProducts(sortType)
         }
 
         override fun onNothingSelected(parent: AdapterView<*>) {
@@ -81,41 +82,33 @@ class CatalogFragment : Fragment() {
     }
 
     private fun onTagSelected(filter: String) {
-        // Здесь добавьте логику для фильтрации списка товаров по выбранному тэгу
-        // Например, обновите адаптер вашего RecyclerView с товарами, используя фильтр
+        viewModel.filterProductsByTag(filter)
     }
 
     private fun onTagDeselected() {
-        // Здесь добавьте логику для отображения всех товаров, когда выбор с тэга снят
-        // Это может быть просто вызов onTagSelected с фильтром, который не исключает никаких товаров
         onTagSelected("all")
     }
 
     private fun subcribeUI() {
         viewModel.products.observe(viewLifecycleOwner) { productResponse ->
-            val catalogItems = productResponse.items.map { productItem ->
-                CatalogItem(
-                    id = productItem.id.hashCode(), // Используйте hashCode для генерации уникального ID
-                    price = productItem.price.price,
-                    discountPrice = productItem.price.priceWithDiscount,
-                    discountPercentage = "${productItem.price.discount}%",
-                    productName = productItem.title,
-                    productDescription = productItem.description,
-                    rating = "${productItem.feedback.rating}",
-                    imageUrls = listOf() // Заполните, если у вас есть URL изображений
-                )
-            }
-            updateCatalogRecyclerView(catalogItems)
-            if (activity is MainActivity) {
-                (activity as MainActivity).showProgressBar(false)
-            }
+            updateCatalogRecyclerView(productResponse)
         }
     }
 
     private fun updateCatalogRecyclerView(catalogItems: List<CatalogItem>) {
-        val adapter = CatalogAdapter(catalogItems)
+        val adapter = CatalogAdapter(
+            catalogItems,
+            onFavoriteClicked = { item -> onFavoriteClicked(item) }
+        )
         binding.catalogRecyclerView.adapter = adapter
-        binding.catalogRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.catalogRecyclerView.layoutManager = GridLayoutManager(
+            requireContext(),
+            2
+        )
+    }
+
+    private fun onFavoriteClicked(item: String) {
+        viewModel.toggleFavorite(item)
     }
 
     override fun onDestroyView() {

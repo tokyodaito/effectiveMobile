@@ -3,6 +3,7 @@ package com.bogsnebes.effectivemobile.ui.catalog.recycler.catalog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bogsnebes.effectivemobile.R
 import com.bogsnebes.effectivemobile.ui.catalog.recycler.catalog.recycler.HorizontalImagesAdapter
 
-class CatalogAdapter(private val items: List<CatalogItem>) :
+class CatalogAdapter(
+    private val items: List<CatalogItem>,
+    private val onFavoriteClicked: (String) -> Unit,
+) :
     RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder>() {
 
     class CatalogViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -21,8 +25,8 @@ class CatalogAdapter(private val items: List<CatalogItem>) :
         val nameTextView: TextView = view.findViewById(R.id.textView3)
         val description: TextView = view.findViewById(R.id.textView4)
         val markTextView: TextView = view.findViewById(R.id.mark)
+        val heartImageView: ImageView = view.findViewById(R.id.imageView4)
 
-        // Сюда добавим LinearLayout для индикаторов
         val indicatorsLayout: LinearLayout = view.findViewById(R.id.indicators_layout)
 
         val recyclerView: RecyclerView =
@@ -55,6 +59,21 @@ class CatalogAdapter(private val items: List<CatalogItem>) :
         val imagesAdapter = HorizontalImagesAdapter(item.imageUrls, holder.indicatorsLayout)
         holder.recyclerView.apply {
             adapter = imagesAdapter
+        }
+        if (item.favorite) {
+            holder.heartImageView.setImageResource(R.drawable.ic_heart_full)
+        } else {
+            holder.heartImageView.setImageResource(R.drawable.ic_heart)
+        }
+
+        holder.heartImageView.setOnClickListener {
+            onFavoriteClicked(item.id)
+            item.favorite = !item.favorite
+            if (item.favorite) {
+                holder.heartImageView.setImageResource(R.drawable.ic_heart_full)
+            } else {
+                holder.heartImageView.setImageResource(R.drawable.ic_heart)
+            }
         }
 
         holder.recyclerView.clearOnScrollListeners() // Очистка перед добавлением нового

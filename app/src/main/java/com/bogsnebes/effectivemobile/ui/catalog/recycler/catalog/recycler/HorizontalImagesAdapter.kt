@@ -6,11 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.bogsnebes.effectivemobile.R
 
 class HorizontalImagesAdapter(
-    private val images: List<String>,
+    private val images: List<Int>,
     private val indicatorLayout: LinearLayout
 ) :
     RecyclerView.Adapter<HorizontalImagesAdapter.ImageViewHolder>() {
@@ -43,14 +42,7 @@ class HorizontalImagesAdapter(
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val imageUrl = images[position]
-        if (imageUrl.isNotBlank()) {
-            holder.imageView.load(imageUrl) {
-                crossfade(true)
-                error(R.drawable.ic_clear)
-            }
-        } else {
-            holder.imageView.setImageResource(R.drawable.ic_clear)
-        }
+        holder.imageView.setImageResource(images[position])
     }
 
     override fun getItemCount(): Int = images.size

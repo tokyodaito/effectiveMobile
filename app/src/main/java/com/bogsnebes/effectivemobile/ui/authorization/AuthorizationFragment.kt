@@ -80,6 +80,9 @@ class AuthorizationFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         }
+        binding.clearableEditText2.hint = "Имя"
+        binding.clearableEditText3.hint = "Фамилия"
+        binding.maskedEditText.hint = "Номер телефона"
         listOf(
             binding.clearableEditText2,
             binding.clearableEditText3,
@@ -92,10 +95,10 @@ class AuthorizationFragment : Fragment() {
     private fun checkFieldsForEmptyValues() {
         binding.activeButton.isActive = listOf(
             binding.clearableEditText2,
-            binding.clearableEditText3,
-            binding.maskedEditText
-        ).none { it.text.isNullOrEmpty() }
+            binding.clearableEditText3
+        ).none { it.text.isNullOrEmpty() } && binding.maskedEditText.text?.length == 16
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

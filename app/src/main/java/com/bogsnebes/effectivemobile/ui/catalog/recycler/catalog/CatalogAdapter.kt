@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bogsnebes.effectivemobile.R
+import com.bogsnebes.effectivemobile.ui.catalog.CatalogItem
 import com.bogsnebes.effectivemobile.ui.catalog.recycler.catalog.recycler.HorizontalImagesAdapter
 
 class CatalogAdapter(
     private val items: List<CatalogItem>,
     private val onFavoriteClicked: (String) -> Unit,
+    private val onItemClicked: (CatalogItem) -> Unit
 ) :
     RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder>() {
 
@@ -48,15 +50,18 @@ class CatalogAdapter(
 
     override fun onBindViewHolder(holder: CatalogViewHolder, position: Int) {
         val item = items[position]
-        holder.priceTextView.text = "${item.price} ₽"
-        holder.discountPriceTextView.text = "${item.discountPrice} ₽"
-        holder.discountTextView.text = "- ${item.discountPercentage}%"
-        holder.nameTextView.text = item.productName
-        holder.description.text = item.productDescription
-        holder.markTextView.text = item.rating
+        holder.priceTextView.text = "${item.item.price.price} ₽"
+        holder.discountPriceTextView.text = "${item.item.price.priceWithDiscount} ₽"
+        holder.discountTextView.text = "- ${item.item.price.discount}%"
+        holder.nameTextView.text = item.item.title
+        holder.description.text = item.item.description
+        holder.markTextView.text = "${item.item.feedback.rating} (${item.item.feedback.count})"
 
-        // Настройка HorizontalImagesAdapter для каждого элемента каталога
-        val imagesAdapter = HorizontalImagesAdapter(item.imageUrls, holder.indicatorsLayout)
+        holder.itemView.setOnClickListener {
+            onItemClicked(item)
+        }
+
+        val imagesAdapter = HorizontalImagesAdapter(item.images, holder.indicatorsLayout)
         holder.recyclerView.apply {
             adapter = imagesAdapter
         }
@@ -67,7 +72,7 @@ class CatalogAdapter(
         }
 
         holder.heartImageView.setOnClickListener {
-            onFavoriteClicked(item.id)
+            onFavoriteClicked(item.item.id)
             item.favorite = !item.favorite
             if (item.favorite) {
                 holder.heartImageView.setImageResource(R.drawable.ic_heart_full)

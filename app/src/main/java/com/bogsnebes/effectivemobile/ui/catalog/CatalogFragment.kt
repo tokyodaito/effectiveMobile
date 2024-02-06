@@ -10,13 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bogsnebes.effectivemobile.R
 import com.bogsnebes.effectivemobile.databinding.FragmentCatalogBinding
 import com.bogsnebes.effectivemobile.ui.MainActivity
 import com.bogsnebes.effectivemobile.ui.catalog.custom_view.CustomSpinnerAdapter
 import com.bogsnebes.effectivemobile.ui.catalog.recycler.catalog.CatalogAdapter
-import com.bogsnebes.effectivemobile.ui.catalog.recycler.catalog.CatalogItem
 import com.bogsnebes.effectivemobile.ui.catalog.recycler.tags.Tag
 import com.bogsnebes.effectivemobile.ui.catalog.recycler.tags.TagsAdapter
+import com.bogsnebes.effectivemobile.ui.information.InformationFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -101,7 +102,7 @@ class CatalogFragment : Fragment() {
 
                 is DataState.Error -> {
                     showLoadingIndicator(false)
-                    showError(state.exception.message)
+                    showError()
                 }
             }
         }
@@ -111,7 +112,7 @@ class CatalogFragment : Fragment() {
         binding.progressBar.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    private fun showError(message: String?) {
+    private fun showError() {
         Toast.makeText(context, "Ошибка загрузки данных", Toast.LENGTH_SHORT).show()
     }
 
@@ -119,7 +120,12 @@ class CatalogFragment : Fragment() {
         val adapter = CatalogAdapter(
             catalogItems,
             onFavoriteClicked = { item -> onFavoriteClicked(item) }
-        )
+        ) {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container_view_tag, InformationFragment.newInstance(it))
+                .addToBackStack(null)
+                .commit()
+        }
         binding.catalogRecyclerView.adapter = adapter
         binding.catalogRecyclerView.layoutManager = GridLayoutManager(
             requireContext(),

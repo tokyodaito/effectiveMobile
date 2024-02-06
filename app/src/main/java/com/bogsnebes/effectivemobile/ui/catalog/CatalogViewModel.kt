@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.bogsnebes.effectivemobile.R
 import com.bogsnebes.effectivemobile.model.database.FavoriteProduct
 import com.bogsnebes.effectivemobile.model.impl.ProductRepository
-import com.bogsnebes.effectivemobile.ui.catalog.recycler.catalog.CatalogItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -40,7 +39,7 @@ class CatalogViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ productResponse ->
                     val catalogItems = productResponse.items.map { productItem ->
-                        val photos = when (productItem.id) {
+                        val images = when (productItem.id) {
                             "cbf0c984-7c6c-4ada-82da-e29dc698bb50" -> listOf(
                                 R.drawable.image_6,
                                 R.drawable.image_5
@@ -86,21 +85,16 @@ class CatalogViewModel @Inject constructor(
                                 R.drawable.image_5
                             )
 
-                            else -> listOf<Int>() // Пустой список, если нет соответствия
+                            else -> listOf<Int>()
                         }
+
                         CatalogItem(
-                            id = productItem.id,
-                            price = productItem.price.price,
-                            discountPrice = productItem.price.priceWithDiscount,
-                            discountPercentage = "${productItem.price.discount}",
-                            productName = productItem.title,
-                            productDescription = productItem.description,
-                            rating = productItem.feedback.rating.toString(),
+                            item = productItem,
                             favorite = false,
-                            imageUrls = photos
+                            images = images
                         )
                     }
-                    originalProductList = catalogItems
+
                     checkFavoritesAndUpdate(catalogItems)
                 }, { error ->
                     error.printStackTrace()
@@ -112,7 +106,7 @@ class CatalogViewModel @Inject constructor(
     private fun checkFavoritesAndUpdate(catalogItems: List<CatalogItem>) {
         val disposable = Observable.fromIterable(catalogItems)
             .flatMapSingle { catalogItem ->
-                productRepository.isFavorite(catalogItem.id)
+                productRepository.isFavorite(catalogItem.item.id)
                     .subscribeOn(Schedulers.io())
                     .map { isFavorite -> Pair(catalogItem, isFavorite) }
             }
@@ -122,9 +116,9 @@ class CatalogViewModel @Inject constructor(
                 val updatedCatalogItems = pairs.map { (catalogItem, isFavorite) ->
                     catalogItem.copy(favorite = isFavorite)
                 }
-                _products.value = DataState.Success(catalogItems)
+                _products.value = DataState.Success(updatedCatalogItems)
                 originalProductList = updatedCatalogItems
-                applyFilterAndSort() // Обновляем отображение с учётом избранного
+                applyFilterAndSort()
             }, { error ->
                 error.printStackTrace()
             })
@@ -149,24 +143,22 @@ class CatalogViewModel @Inject constructor(
         tempList = when (currentFilter) {
             "all" -> tempList
             else -> tempList.filter {
-                it.productDescription.contains(
-                    currentFilter,
-                    ignoreCase = true
+                it.item.tags.contains(
+                    currentFilter
                 )
             }
         }
 
         tempList = when (currentSortType) {
-            "По популярности" -> tempList.sortedByDescending { it.rating.toDouble() }
-            "По уменьшению цены" -> tempList.sortedByDescending { it.discountPrice.toDouble() }
-            "По возрастанию цены" -> tempList.sortedBy { it.discountPrice.toDouble() }
+            "По популярности" -> tempList.sortedByDescending { it.item.feedback.rating }
+            "По уменьшению цены" -> tempList.sortedByDescending { it.item.price.priceWithDiscount }
+            "По возрастанию цены" -> tempList.sortedBy { it.item.price.priceWithDiscount }
             else -> tempList
         }
 
         _products.value = DataState.Success(tempList)
     }
 
-    // Пример использования RxJava в ViewModel
     fun toggleFavorite(productId: String) {
         val disposable = productRepository.isFavorite(productId)
             .subscribeOn(Schedulers.io())
@@ -184,7 +176,7 @@ class CatalogViewModel @Inject constructor(
             }, { throwable ->
                 // Обработка ошибки
             })
-
+        compositeDisposable.add(disposable)
     }
 
     override fun onCleared() {

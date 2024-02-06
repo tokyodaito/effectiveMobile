@@ -12,19 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bogsnebes.effectivemobile.R
 import com.bogsnebes.effectivemobile.ui.catalog.recycler.catalog.recycler.HorizontalImagesAdapter
 
-class CatalogAdapter(
-    private val items: List<CatalogItem>,
+class FavoritesAdapter(
+    private val items: MutableList<FavoritesItem>,
     private val onFavoriteClicked: (String) -> Unit,
 ) :
-    RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder>() {
-
-    private var filteredItems: List<CatalogItem> = items.filter { it.favorite }
-
-    fun updateItems(newItems: List<CatalogItem>) {
-        this.filteredItems = newItems.filter { it.favorite }
-        notifyDataSetChanged()
-    }
-
+    RecyclerView.Adapter<FavoritesAdapter.CatalogViewHolder>() {
 
     class CatalogViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val priceTextView: TextView = view.findViewById(R.id.strikethroughTextView)
@@ -55,7 +47,7 @@ class CatalogAdapter(
     }
 
     override fun onBindViewHolder(holder: CatalogViewHolder, position: Int) {
-        val item = filteredItems[position]
+        val item = items[position]
         holder.priceTextView.text = "${item.price} ₽"
         holder.discountPriceTextView.text = "${item.discountPrice} ₽"
         holder.discountTextView.text = "- ${item.discountPercentage}%"
@@ -71,15 +63,16 @@ class CatalogAdapter(
         }
 
         holder.heartImageView.setOnClickListener {
-            filteredItems.drop(position)
-            updateItems(filteredItems)
+            onFavoriteClicked(item.id)
+            items.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, itemCount)
         }
 
         holder.recyclerView.clearOnScrollListeners() // Очистка перед добавлением нового
         holder.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                // Используйте SnapHelper для определения текущего видимого элемента
                 val snapHelper = PagerSnapHelper()
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val snapView = snapHelper.findSnapView(layoutManager) ?: return

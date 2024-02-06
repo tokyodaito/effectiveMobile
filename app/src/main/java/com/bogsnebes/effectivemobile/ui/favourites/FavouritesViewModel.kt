@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.bogsnebes.effectivemobile.R
 import com.bogsnebes.effectivemobile.model.database.FavoriteProduct
 import com.bogsnebes.effectivemobile.model.impl.ProductRepository
-import com.bogsnebes.effectivemobile.ui.catalog.recycler.catalog.CatalogItem
+import com.bogsnebes.effectivemobile.ui.favourites.recycler.FavoritesItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,14 +18,19 @@ import javax.inject.Inject
 class FavouritesViewModel @Inject constructor(
     private val productRepository: ProductRepository,
 ) : ViewModel() {
-    private val _products = MutableLiveData<List<CatalogItem>>()
-    val products: LiveData<List<CatalogItem>> = _products
+    private val _products = MutableLiveData<DataState<List<FavoritesItem>>>()
+    val products: LiveData<DataState<List<FavoritesItem>>> = _products
 
-    private var originalProductList: List<CatalogItem>? = null
+    private var originalProductList: List<FavoritesItem>? = null
 
     private val compositeDisposable = CompositeDisposable()
 
+    init {
+        loadProducts()
+    }
+
     private fun loadProducts() {
+        _products.postValue(DataState.Loading)
         compositeDisposable.add(
             productRepository.getProducts()
                 .subscribeOn(Schedulers.io())
@@ -80,27 +85,28 @@ class FavouritesViewModel @Inject constructor(
 
                             else -> listOf<Int>() // Пустой список, если нет соответствия
                         }
-                        CatalogItem(
+                        FavoritesItem(
                             id = productItem.id,
                             price = productItem.price.price,
                             discountPrice = productItem.price.priceWithDiscount,
-                            discountPercentage = ((1 - productItem.price.priceWithDiscount.toDouble() / productItem.price.price.toDouble()) * 100).toString(),
+                            discountPercentage = "${productItem.price.discount}",
                             productName = productItem.title,
                             productDescription = productItem.description,
                             rating = productItem.feedback.rating.toString(),
-                            favorite = false, // Изначально статус избранного false
-                            imageUrls = photos // Предполагается, что у вас есть логика для получения URL изображений
+                            favorite = false,
+                            imageUrls = photos
                         )
                     }
                     originalProductList = catalogItems
                     checkFavoritesAndUpdate(catalogItems)
                 }, { error ->
                     error.printStackTrace()
+                    _products.value = DataState.Error(error)
                 })
         )
     }
 
-    private fun checkFavoritesAndUpdate(catalogItems: List<CatalogItem>) {
+    private fun checkFavoritesAndUpdate(catalogItems: List<FavoritesItem>) {
         val disposable = Observable.fromIterable(catalogItems)
             .flatMapSingle { catalogItem ->
                 productRepository.isFavorite(catalogItem.id)
@@ -113,8 +119,8 @@ class FavouritesViewModel @Inject constructor(
                 val updatedCatalogItems = pairs.map { (catalogItem, isFavorite) ->
                     catalogItem.copy(favorite = isFavorite)
                 }
-                _products.value = updatedCatalogItems
-                originalProductList = updatedCatalogItems
+                _products.value = DataState.Success(updatedCatalogItems.filter { it.favorite })
+                originalProductList = updatedCatalogItems.filter { it.favorite }
             }, { error ->
                 error.printStackTrace()
             })

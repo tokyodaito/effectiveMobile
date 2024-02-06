@@ -1,6 +1,6 @@
 package com.bogsnebes.effectivemobile.ui.favourites.recycler
 
-data class CatalogItem(
+data class FavoritesItem(
     val id: String,
     val price: String,
     val discountPrice: String,

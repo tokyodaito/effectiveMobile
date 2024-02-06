@@ -77,4 +77,14 @@
         app:layout_constraintTop_toTopOf="@+id/textView5"
         app:srcCompat="@drawable/ic_filter" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/catalogRecyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/catalogRecyclerView"
+        app:layout_constraintStart_toStartOf="@+id/catalogRecyclerView"
+        app:layout_constraintTop_toTopOf="@+id/catalogRecyclerView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

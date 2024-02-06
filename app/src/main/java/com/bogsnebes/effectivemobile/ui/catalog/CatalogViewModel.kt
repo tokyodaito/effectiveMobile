@@ -19,8 +19,8 @@ class CatalogViewModel @Inject constructor(
     private val productRepository: ProductRepository,
 ) : ViewModel() {
 
-    private val _products = MutableLiveData<List<CatalogItem>>()
-    val products: LiveData<List<CatalogItem>> = _products
+    private val _products = MutableLiveData<DataState<List<CatalogItem>>>()
+    val products: LiveData<DataState<List<CatalogItem>>> = _products
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -33,6 +33,7 @@ class CatalogViewModel @Inject constructor(
     }
 
     private fun loadProducts() {
+        _products.postValue(DataState.Loading)
         compositeDisposable.add(
             productRepository.getProducts()
                 .subscribeOn(Schedulers.io())
@@ -91,18 +92,19 @@ class CatalogViewModel @Inject constructor(
                             id = productItem.id,
                             price = productItem.price.price,
                             discountPrice = productItem.price.priceWithDiscount,
-                            discountPercentage = ((1 - productItem.price.priceWithDiscount.toDouble() / productItem.price.price.toDouble()) * 100).toString(),
+                            discountPercentage = "${productItem.price.discount}",
                             productName = productItem.title,
                             productDescription = productItem.description,
                             rating = productItem.feedback.rating.toString(),
-                            favorite = false, // Изначально статус избранного false
-                            imageUrls = photos // Предполагается, что у вас есть логика для получения URL изображений
+                            favorite = false,
+                            imageUrls = photos
                         )
                     }
                     originalProductList = catalogItems
                     checkFavoritesAndUpdate(catalogItems)
                 }, { error ->
                     error.printStackTrace()
+                    _products.value = DataState.Error(error)
                 })
         )
     }
@@ -120,7 +122,7 @@ class CatalogViewModel @Inject constructor(
                 val updatedCatalogItems = pairs.map { (catalogItem, isFavorite) ->
                     catalogItem.copy(favorite = isFavorite)
                 }
-                _products.value = updatedCatalogItems
+                _products.value = DataState.Success(catalogItems)
                 originalProductList = updatedCatalogItems
                 applyFilterAndSort() // Обновляем отображение с учётом избранного
             }, { error ->
@@ -161,7 +163,7 @@ class CatalogViewModel @Inject constructor(
             else -> tempList
         }
 
-        _products.value = tempList
+        _products.value = DataState.Success(tempList)
     }
 
     // Пример использования RxJava в ViewModel

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -48,7 +49,7 @@ class CatalogFragment : Fragment() {
 
         initSpinner()
         setupTagsRecyclerView()
-        subcribeUI()
+        subscribeUI()
     }
 
     private fun initSpinner() {
@@ -89,10 +90,29 @@ class CatalogFragment : Fragment() {
         onTagSelected("all")
     }
 
-    private fun subcribeUI() {
-        viewModel.products.observe(viewLifecycleOwner) { productResponse ->
-            updateCatalogRecyclerView(productResponse)
+    private fun subscribeUI() {
+        viewModel.products.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is DataState.Loading -> showLoadingIndicator(true)
+                is DataState.Success -> {
+                    showLoadingIndicator(false)
+                    updateCatalogRecyclerView(state.data)
+                }
+
+                is DataState.Error -> {
+                    showLoadingIndicator(false)
+                    showError(state.exception.message)
+                }
+            }
         }
+    }
+
+    private fun showLoadingIndicator(show: Boolean) {
+        binding.progressBar.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    private fun showError(message: String?) {
+        Toast.makeText(context, "Ошибка загрузки данных", Toast.LENGTH_SHORT).show()
     }
 
     private fun updateCatalogRecyclerView(catalogItems: List<CatalogItem>) {

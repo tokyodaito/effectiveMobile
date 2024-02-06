@@ -55,7 +55,13 @@ class InformationFragment : Fragment() {
         textView16.text = "${catalogItem.item.feedback.count} отзывов"
         textView15.text = catalogItem.item.feedback.rating.toString()
         textView14.setText(catalogItem.item.description)
-        textView10.text = "Доступно для заказа ${catalogItem.item.available} штук"
+        textView10.text = "Доступно для заказа ${
+            resources.getQuantityString(
+                R.plurals.available_count,
+                catalogItem.item.available,
+                catalogItem.item.available
+            )
+        }"
         textView11.text = "${catalogItem.item.price.priceWithDiscount} ₽"
         strikethroughTextView2.text = "${catalogItem.item.price.price} ₽"
         textView12.text = "-${catalogItem.item.price.discount}%"
@@ -64,6 +70,7 @@ class InformationFragment : Fragment() {
         expandableTextView.setText(catalogItem.item.ingredients)
         priceOnButton.text = "${catalogItem.item.price.priceWithDiscount}₽"
         priceWithoutDiscountOnButton.text = "${catalogItem.item.price.price}₽"
+        imageView10.setImageResource(if (catalogItem.favorite) R.drawable.ic_heart_full else R.drawable.ic_heart)
     }
 
     private fun setupImageRecyclerView(images: List<Int>) {
@@ -89,9 +96,10 @@ class InformationFragment : Fragment() {
         })
     }
 
-    private fun handleFavorite(catalogItem: CatalogItem) = with(binding.imageView6) {
+    private fun handleFavorite(catalogItem: CatalogItem) = with(binding.imageView10) {
         setOnClickListener {
             viewModel.toggleFavorite(catalogItem.item.id)
+            catalogItem.favorite = !catalogItem.favorite
             setImageResource(if (catalogItem.favorite) R.drawable.ic_heart_full else R.drawable.ic_heart)
         }
     }

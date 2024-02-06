@@ -5,4 +5,10 @@
         <item quantity="many">%d товаров</item>
         <item quantity="other">%d товаров</item>
     </plurals>
+    <plurals name="available_count">
+        <item quantity="one">%d штука</item>
+        <item quantity="few">%d штуки</item>
+        <item quantity="many">%d штук</item>
+        <item quantity="other">%d штук</item>
+    </plurals>
 </resources>

@@ -39,6 +39,7 @@ class InformationFragment : Fragment() {
         if (catalogItem != null) {
             binding.ratingView.estimation = catalogItem.item.feedback.rating.toFloat()
             binding.textView16.text = "${catalogItem.item.feedback.count} отзывов"
+            binding.textView15.text = "${catalogItem.item.feedback.rating}"
             val imagesAdapter = HorizontalImagesAdapter(
                 catalogItem.images,
                 binding.indicatorsLayout
@@ -88,6 +89,10 @@ class InformationFragment : Fragment() {
                 } else {
                     binding.imageView6.setImageResource(R.drawable.ic_heart)
                 }
+            }
+
+            binding.imageView5.setOnClickListener {
+                parentFragmentManager.popBackStack()
             }
         }
     }

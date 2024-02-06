@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.bogsnebes.effectivemobile.R
 import com.bogsnebes.effectivemobile.model.database.FavoriteProduct
 import com.bogsnebes.effectivemobile.model.impl.ProductRepository
-import com.bogsnebes.effectivemobile.ui.favourites.recycler.FavoritesItem
+import com.bogsnebes.effectivemobile.ui.catalog.CatalogItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,10 +18,8 @@ import javax.inject.Inject
 class FavouritesViewModel @Inject constructor(
     private val productRepository: ProductRepository,
 ) : ViewModel() {
-    private val _products = MutableLiveData<DataState<List<FavoritesItem>>>()
-    val products: LiveData<DataState<List<FavoritesItem>>> = _products
-
-    private var originalProductList: List<FavoritesItem>? = null
+    private val _products = MutableLiveData<DataState<List<CatalogItem>>>()
+    val products: LiveData<DataState<List<CatalogItem>>> = _products
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -37,7 +35,7 @@ class FavouritesViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ productResponse ->
                     val catalogItems = productResponse.items.map { productItem ->
-                        val photos = when (productItem.id) {
+                        val images = when (productItem.id) {
                             "cbf0c984-7c6c-4ada-82da-e29dc698bb50" -> listOf(
                                 R.drawable.image_6,
                                 R.drawable.image_5
@@ -83,21 +81,16 @@ class FavouritesViewModel @Inject constructor(
                                 R.drawable.image_5
                             )
 
-                            else -> listOf<Int>() // Пустой список, если нет соответствия
+                            else -> listOf<Int>()
                         }
-                        FavoritesItem(
-                            id = productItem.id,
-                            price = productItem.price.price,
-                            discountPrice = productItem.price.priceWithDiscount,
-                            discountPercentage = "${productItem.price.discount}",
-                            productName = productItem.title,
-                            productDescription = productItem.description,
-                            rating = productItem.feedback.rating.toString(),
+
+                        CatalogItem(
+                            item = productItem,
                             favorite = false,
-                            imageUrls = photos
+                            images = images
                         )
                     }
-                    originalProductList = catalogItems
+
                     checkFavoritesAndUpdate(catalogItems)
                 }, { error ->
                     error.printStackTrace()
@@ -106,10 +99,10 @@ class FavouritesViewModel @Inject constructor(
         )
     }
 
-    private fun checkFavoritesAndUpdate(catalogItems: List<FavoritesItem>) {
+    private fun checkFavoritesAndUpdate(catalogItems: List<CatalogItem>) {
         val disposable = Observable.fromIterable(catalogItems)
             .flatMapSingle { catalogItem ->
-                productRepository.isFavorite(catalogItem.id)
+                productRepository.isFavorite(catalogItem.item.id)
                     .subscribeOn(Schedulers.io())
                     .map { isFavorite -> Pair(catalogItem, isFavorite) }
             }
@@ -120,7 +113,6 @@ class FavouritesViewModel @Inject constructor(
                     catalogItem.copy(favorite = isFavorite)
                 }
                 _products.value = DataState.Success(updatedCatalogItems.filter { it.favorite })
-                originalProductList = updatedCatalogItems.filter { it.favorite }
             }, { error ->
                 error.printStackTrace()
             })
@@ -145,7 +137,7 @@ class FavouritesViewModel @Inject constructor(
             }, { throwable ->
                 // Обработка ошибки
             })
-
+        compositeDisposable.add(disposable)
     }
 
     override fun onCleared() {

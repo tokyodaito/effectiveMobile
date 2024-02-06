@@ -8,10 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bogsnebes.effectivemobile.R
 import com.bogsnebes.effectivemobile.databinding.FragmentFavouritesBinding
 import com.bogsnebes.effectivemobile.ui.MainActivity
+import com.bogsnebes.effectivemobile.ui.catalog.CatalogItem
 import com.bogsnebes.effectivemobile.ui.favourites.recycler.FavoritesAdapter
-import com.bogsnebes.effectivemobile.ui.favourites.recycler.FavoritesItem
+import com.bogsnebes.effectivemobile.ui.information.InformationFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -63,11 +65,16 @@ class FavouritesFragment : Fragment() {
         Toast.makeText(context, "Ошибка загрузки данных", Toast.LENGTH_SHORT).show()
     }
 
-    private fun updateCatalogRecyclerView(catalogItems: List<FavoritesItem>) {
+    private fun updateCatalogRecyclerView(catalogItems: List<CatalogItem>) {
         val adapter = FavoritesAdapter(
             catalogItems.toMutableList(),
             onFavoriteClicked = { item -> onFavoriteClicked(item) }
-        )
+        ) {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container_view_tag, InformationFragment.newInstance(it))
+                .addToBackStack(null)
+                .commit()
+        }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = GridLayoutManager(
             requireContext(),

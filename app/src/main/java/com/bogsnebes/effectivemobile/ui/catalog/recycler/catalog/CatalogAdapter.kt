@@ -17,10 +17,11 @@ class CatalogAdapter(
     private val items: List<CatalogItem>,
     private val onFavoriteClicked: (String) -> Unit,
     private val onItemClicked: (CatalogItem) -> Unit
-) :
-    RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder>() {
+) : RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder>() {
 
-    class CatalogViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class CatalogViewHolder(view: View) :
+        RecyclerView.ViewHolder(view) {
+        val snapHelper: PagerSnapHelper = PagerSnapHelper()
         val priceTextView: TextView = view.findViewById(R.id.strikethroughTextView)
         val discountPriceTextView: TextView = view.findViewById(R.id.textView7)
         val discountTextView: TextView = view.findViewById(R.id.discount)
@@ -30,15 +31,11 @@ class CatalogAdapter(
         val heartImageView: ImageView = view.findViewById(R.id.imageView4)
 
         val indicatorsLayout: LinearLayout = view.findViewById(R.id.indicators_layout)
-
         val recyclerView: RecyclerView =
             view.findViewById<RecyclerView?>(R.id.recyclerView2).apply {
-                PagerSnapHelper().attachToRecyclerView(this)
-                layoutManager = LinearLayoutManager(
-                    context,
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-                )
+                snapHelper.attachToRecyclerView(this)
+                this.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             }
     }
 
@@ -50,43 +47,47 @@ class CatalogAdapter(
 
     override fun onBindViewHolder(holder: CatalogViewHolder, position: Int) {
         val item = items[position]
-        holder.priceTextView.text = "${item.item.price.price} ₽"
-        holder.discountPriceTextView.text = "${item.item.price.priceWithDiscount} ₽"
-        holder.discountTextView.text = "- ${item.item.price.discount}%"
-        holder.nameTextView.text = item.item.title
-        holder.description.text = item.item.description
-        holder.markTextView.text = "${item.item.feedback.rating} (${item.item.feedback.count})"
+        with(holder) {
+            priceTextView.text = "${item.item.price.price} ₽"
+            discountPriceTextView.text = "${item.item.price.priceWithDiscount} ₽"
+            discountTextView.text = "- ${item.item.price.discount}%"
+            nameTextView.text = item.item.title
+            description.text = item.item.description
+            markTextView.text = "${item.item.feedback.rating} (${item.item.feedback.count})"
 
-        holder.itemView.setOnClickListener {
-            onItemClicked(item)
-        }
-
-        val imagesAdapter = HorizontalImagesAdapter(item.images, holder.indicatorsLayout)
-        holder.recyclerView.apply {
-            adapter = imagesAdapter
-        }
-        if (item.favorite) {
-            holder.heartImageView.setImageResource(R.drawable.ic_heart_full)
-        } else {
-            holder.heartImageView.setImageResource(R.drawable.ic_heart)
-        }
-
-        holder.heartImageView.setOnClickListener {
-            onFavoriteClicked(item.item.id)
-            item.favorite = !item.favorite
-            if (item.favorite) {
-                holder.heartImageView.setImageResource(R.drawable.ic_heart_full)
-            } else {
-                holder.heartImageView.setImageResource(R.drawable.ic_heart)
+            itemView.setOnClickListener {
+                onItemClicked(item)
             }
-        }
 
-        holder.recyclerView.clearOnScrollListeners() // Очистка перед добавлением нового
-        holder.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            updateHeartIcon(heartImageView, item.favorite)
+
+            heartImageView.setOnClickListener {
+                onFavoriteClicked(item.item.id)
+                item.favorite = !item.favorite
+                updateHeartIcon(heartImageView, item.favorite)
+            }
+
+            val adapter = HorizontalImagesAdapter(item.images, indicatorsLayout)
+            recyclerView.adapter = adapter
+            recyclerView.setupScrollListener(
+                adapter,
+                snapHelper
+            )
+        }
+    }
+
+    private fun updateHeartIcon(heartImageView: ImageView, isFavorite: Boolean) {
+        heartImageView.setImageResource(if (isFavorite) R.drawable.ic_heart_full else R.drawable.ic_heart)
+    }
+
+    private fun RecyclerView.setupScrollListener(
+        imagesAdapter: HorizontalImagesAdapter,
+        snapHelper: PagerSnapHelper
+    ) {
+        this.clearOnScrollListeners()
+        this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                // Используйте SnapHelper для определения текущего видимого элемента
-                val snapHelper = PagerSnapHelper()
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val snapView = snapHelper.findSnapView(layoutManager) ?: return
                 val newPosition = layoutManager.getPosition(snapView)
@@ -99,4 +100,5 @@ class CatalogAdapter(
 
     override fun getItemCount(): Int = items.size
 }
+
 

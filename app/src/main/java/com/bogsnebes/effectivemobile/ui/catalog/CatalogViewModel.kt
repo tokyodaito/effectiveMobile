@@ -39,55 +39,7 @@ class CatalogViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ productResponse ->
                     val catalogItems = productResponse.items.map { productItem ->
-                        val images = when (productItem.id) {
-                            "cbf0c984-7c6c-4ada-82da-e29dc698bb50" -> listOf(
-                                R.drawable.image_6,
-                                R.drawable.image_5
-                            )
-
-                            "54a876a5-2205-48ba-9498-cfecff4baa6e" -> listOf(
-                                R.drawable.image_1,
-                                R.drawable.image_2
-                            )
-
-                            "75c84407-52e1-4cce-a73a-ff2d3ac031b3" -> listOf(
-                                R.drawable.image_5,
-                                R.drawable.image_6
-                            )
-
-                            "cbf0c984-7c6c-4ada-82da-e29dc698bb50" -> listOf(
-                                R.drawable.image_6,
-                                R.drawable.image_5
-                            )
-
-                            "16f88865-ae74-4b7c-9d85-b68334bb97db" -> listOf(
-                                R.drawable.image_3,
-                                R.drawable.image_4
-                            )
-
-                            "26f88856-ae74-4b7c-9d85-b68334bb97db" -> listOf(
-                                R.drawable.image_2,
-                                R.drawable.image_3
-                            )
-
-                            "15f88865-ae74-4b7c-9d81-b78334bb97db" -> listOf(
-                                R.drawable.image_6,
-                                R.drawable.image_1
-                            )
-
-                            "88f88865-ae74-4b7c-9d81-b78334bb97db" -> listOf(
-                                R.drawable.image_4,
-                                R.drawable.image_3
-                            )
-
-                            "55f58865-ae74-4b7c-9d81-b78334bb97db" -> listOf(
-                                R.drawable.image_1,
-                                R.drawable.image_5
-                            )
-
-                            else -> listOf<Int>()
-                        }
-
+                        val images = getImages(productItem.id)
                         CatalogItem(
                             item = productItem,
                             favorite = false,
@@ -124,6 +76,57 @@ class CatalogViewModel @Inject constructor(
             })
 
         compositeDisposable.add(disposable)
+    }
+
+    private fun getImages(id: String): List<Int> {
+        return when (id) {
+            "cbf0c984-7c6c-4ada-82da-e29dc698bb50" -> listOf(
+                R.drawable.image_6,
+                R.drawable.image_5
+            )
+
+            "54a876a5-2205-48ba-9498-cfecff4baa6e" -> listOf(
+                R.drawable.image_1,
+                R.drawable.image_2
+            )
+
+            "75c84407-52e1-4cce-a73a-ff2d3ac031b3" -> listOf(
+                R.drawable.image_5,
+                R.drawable.image_6
+            )
+
+            "cbf0c984-7c6c-4ada-82da-e29dc698bb50" -> listOf(
+                R.drawable.image_6,
+                R.drawable.image_5
+            )
+
+            "16f88865-ae74-4b7c-9d85-b68334bb97db" -> listOf(
+                R.drawable.image_3,
+                R.drawable.image_4
+            )
+
+            "26f88856-ae74-4b7c-9d85-b68334bb97db" -> listOf(
+                R.drawable.image_2,
+                R.drawable.image_3
+            )
+
+            "15f88865-ae74-4b7c-9d81-b78334bb97db" -> listOf(
+                R.drawable.image_6,
+                R.drawable.image_1
+            )
+
+            "88f88865-ae74-4b7c-9d81-b78334bb97db" -> listOf(
+                R.drawable.image_4,
+                R.drawable.image_3
+            )
+
+            "55f58865-ae74-4b7c-9d81-b78334bb97db" -> listOf(
+                R.drawable.image_1,
+                R.drawable.image_5
+            )
+
+            else -> listOf<Int>()
+        }
     }
 
 

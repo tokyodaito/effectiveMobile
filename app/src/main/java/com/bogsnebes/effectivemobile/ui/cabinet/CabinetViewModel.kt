@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import com.bogsnebes.effectivemobile.model.impl.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -19,8 +20,10 @@ class CabinetViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
     private val _countOfFavorites = MutableLiveData<Int>()
     val countOfFavorites: LiveData<Int> = _countOfFavorites
+
+    private val compositeDisposable = CompositeDisposable()
     fun loadFavoritesCount() {
-        productRepository.countFavorites()
+        val disposable = productRepository.countFavorites()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ count ->
@@ -28,6 +31,7 @@ class CabinetViewModel @Inject constructor(
             }, { error ->
                 error.printStackTrace()
             })
+        compositeDisposable.add(disposable)
     }
 
     private val sharedPreferences: SharedPreferences =
@@ -43,5 +47,10 @@ class CabinetViewModel @Inject constructor(
 
     fun getPhone(): String? {
         return sharedPreferences.getString("phone_number", "phone_number")
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.dispose()
     }
 }

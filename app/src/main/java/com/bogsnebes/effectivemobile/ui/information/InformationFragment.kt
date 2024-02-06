@@ -70,7 +70,7 @@ class InformationFragment : Fragment() {
             binding.textView11.text = "${catalogItem.item.price.priceWithDiscount} ₽"
             binding.strikethroughTextView2.text = "${catalogItem.item.price.price} ₽"
             binding.textView12.text = "-${catalogItem.item.price.discount}%"
-            binding.brend.text = "${catalogItem.item.title}"
+            binding.brand.text = "${catalogItem.item.title}"
             binding.subtitle.text = "${catalogItem.item.subtitle}"
             binding.expandableTextView.setText("${catalogItem.item.ingredients}")
             binding.priceOnButton.text = "${catalogItem.item.price.priceWithDiscount}₽"
@@ -93,6 +93,16 @@ class InformationFragment : Fragment() {
 
             binding.imageView5.setOnClickListener {
                 parentFragmentManager.popBackStack()
+            }
+
+            catalogItem.item.info.forEach {
+                if (it.title == "Артикул товара") {
+                    binding.textView21.text = it.value
+                } else if (it.title == "Область использования") {
+                    binding.textView22.text = it.value
+                } else {
+                    binding.textView23.text = it.value
+                }
             }
         }
     }

@@ -15,12 +15,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private var showBottomNav: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        showBottomNav(false)
 
         if (savedInstanceState == null) {
             if (hasUserData()) {
@@ -32,6 +32,8 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNavigation.selectedItemId = R.id.navigation_catalog
                 showBottomNav(false)
             }
+        } else {
+            showBottomNav(savedInstanceState.getBoolean("showBottomNav"))
         }
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
@@ -66,6 +68,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("showBottomNav", showBottomNav)
+    }
+
     private fun hasUserData(): Boolean {
         val sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         return sharedPreferences.contains("name")
@@ -93,6 +100,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showBottomNav(show: Boolean) {
+        showBottomNav = show
         binding.bottomNavigation.visibility = if (show) View.VISIBLE else View.GONE
     }
 

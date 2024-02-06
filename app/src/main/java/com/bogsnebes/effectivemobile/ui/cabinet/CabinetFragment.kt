@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.bogsnebes.effectivemobile.R
 import com.bogsnebes.effectivemobile.databinding.FragmentCabinetBinding
 import com.bogsnebes.effectivemobile.ui.MainActivity
+import com.bogsnebes.effectivemobile.ui.favourites.FavouritesFragment
 
 class CabinetFragment : Fragment() {
     private var _binding: FragmentCabinetBinding? = null
@@ -27,6 +29,12 @@ class CabinetFragment : Fragment() {
             (activity as MainActivity).showProgressBar(false)
         }
         setupUserData()
+        binding.gachi1.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container_view_tag, FavouritesFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     override fun onDestroyView() {

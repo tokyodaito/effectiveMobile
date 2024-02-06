@@ -18,6 +18,9 @@ interface FavoritesDao {
 
     @Delete
     fun removeFavorite(favoriteProduct: FavoriteProduct): Completable
+
+    @Query("SELECT COUNT(*) FROM favorites")
+    fun countFavorites(): Single<Int>
 }
 
 

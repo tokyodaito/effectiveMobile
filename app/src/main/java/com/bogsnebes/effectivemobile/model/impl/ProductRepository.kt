@@ -21,6 +21,8 @@ class ProductRepository @Inject constructor(
 
     fun removeFavorite(favoriteProduct: FavoriteProduct): Completable =
         favoritesDao.removeFavorite(favoriteProduct)
+
+    fun countFavorites(): Single<Int> = favoritesDao.countFavorites()
 }
 
 

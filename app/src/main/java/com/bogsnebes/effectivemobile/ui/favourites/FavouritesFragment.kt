@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bogsnebes.effectivemobile.databinding.FragmentFavouritesBinding
 import com.bogsnebes.effectivemobile.ui.MainActivity
-import com.bogsnebes.effectivemobile.ui.catalog.DataState
 import com.bogsnebes.effectivemobile.ui.favourites.recycler.FavoritesAdapter
 import com.bogsnebes.effectivemobile.ui.favourites.recycler.FavoritesItem
 import dagger.hilt.android.AndroidEntryPoint

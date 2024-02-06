@@ -27,17 +27,10 @@ class CabinetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (activity is MainActivity) {
-            (activity as MainActivity).showProgressBar(false)
-        }
+        (activity as? MainActivity)?.showProgressBar(false)
         viewModel.loadFavoritesCount()
         setupUserData()
-        binding.button2.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container_view_tag, FavouritesFragment.newInstance())
-                .addToBackStack(null)
-                .commit()
-        }
+        setupButtonClickListener()
     }
 
     override fun onDestroyView() {
@@ -46,20 +39,27 @@ class CabinetFragment : Fragment() {
     }
 
     private fun setupUserData() {
-        binding.name.text = "${viewModel.getName()} ${viewModel.getSurname()}"
-        binding.phoneNumber.text = viewModel.getPhone()
-
-        viewModel.countOfFavorites.observe(viewLifecycleOwner) { count ->
-            if (count == 0 || count >= 5) {
-                binding.countOfItems.text = "$count товаров"
-            } else if (count == 1) {
-                binding.countOfItems.text = "$count товар"
-            } else {
-                binding.countOfItems.text = "$count товара"
+        with(binding) {
+            name.text = "${viewModel.getName()} + ${viewModel.getSurname()}"
+            phoneNumber.text = viewModel.getPhone()
+            viewModel.countOfFavorites.observe(viewLifecycleOwner) { count ->
+                countOfItems.text = resources.getQuantityString(R.plurals.items_count, count, count)
             }
         }
     }
 
+    private fun setupButtonClickListener() {
+        binding.button2.setOnClickListener {
+            navigateToFavouritesFragment()
+        }
+    }
+
+    private fun navigateToFavouritesFragment() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view_tag, FavouritesFragment.newInstance())
+            .addToBackStack(null)
+            .commit()
+    }
 
     companion object {
         fun newInstance(): CabinetFragment = CabinetFragment()

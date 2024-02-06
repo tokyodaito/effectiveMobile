@@ -53,8 +53,8 @@ class AuthorizationFragment : Fragment() {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://google.com"))
                 view.context.startActivity(intent)
             }
-            val start = indexOf("условия программы лояльности")
-            val end = start + "условия программы лояльности".length
+            val start = indexOf(getString(R.string.terms_of_the_loyalty_program))
+            val end = start + getString(R.string.terms_of_the_loyalty_program).length
             setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
         binding.textView2.apply {
@@ -80,9 +80,9 @@ class AuthorizationFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         }
-        binding.clearableEditText2.hint = "Имя"
-        binding.clearableEditText3.hint = "Фамилия"
-        binding.maskedEditText.hint = "Номер телефона"
+        binding.clearableEditText2.hint = getString(R.string.name)
+        binding.clearableEditText3.hint = getString(R.string.surname)
+        binding.maskedEditText.hint = getString(R.string.phone_number)
         listOf(
             binding.clearableEditText2,
             binding.clearableEditText3,

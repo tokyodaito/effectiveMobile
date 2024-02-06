@@ -6,6 +6,10 @@
     <string name="catalog">Каталог</string>
     <string name="terms_of_use">Нажимая кнопку "Войти", вы принимаете условия программы лояльности</string>
     <string name="remove_the_tag">Убрать тэг</string>
+    <string name="terms_of_the_loyalty_program">условия программы лояльности</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="phone_number">Номер телефона</string>
 
     <!--  bottom navigation  -->
     <string name="title_home">Главная</string>
@@ -36,11 +40,14 @@
 
     <!--  recycler_item_catalog_item  -->
     <string name="add_to_favorites">Добавить в избранное</string>
+
+    <!--  fragment information  -->
     <string name="description">Описание</string>
     <string name="specifications">Характеристики</string>
     <string name="composition">Состав</string>
     <string name="copy">Скопировать</string>
     <string name="add_to_cart">Добавить корзину</string>
-
-    <!--  fragment information  -->
+    <string name="Item_number">Артикул товара</string>
+    <string name="scope_of_use">Область использования</string>
+    <string name="country_of_manufacture">Страна производства</string>
 </resources>

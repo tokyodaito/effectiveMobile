@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize">
 
         <TextView
@@ -78,10 +79,10 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="95dp"
             android:layout_marginBottom="16dp"
-            android:text="TextView"
+            android:textSize="11sp"
             android:textAlignment="center"
             android:textColor="@color/terms_of_use"
-            android:textSize="10sp"
+            tools:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

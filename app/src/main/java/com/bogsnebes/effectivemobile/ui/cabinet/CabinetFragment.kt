@@ -32,7 +32,7 @@ class CabinetFragment : Fragment() {
         }
         viewModel.loadFavoritesCount()
         setupUserData()
-        binding.gachi1.setOnClickListener {
+        binding.button2.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container_view_tag, FavouritesFragment.newInstance())
                 .addToBackStack(null)

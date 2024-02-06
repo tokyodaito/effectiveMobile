@@ -1,14 +1,46 @@
 <resources>
     <string name="app_name">Effective Mobile</string>
+
+    <!--  fragment_authorization  -->
     <string name="entrance">Вход</string>
     <string name="catalog">Каталог</string>
     <string name="terms_of_use">Нажимая кнопку "Войти", вы принимаете условия программы лояльности</string>
-    <string name="filter_button">Фильтры</string>
-    <string name="show_more">Подробнее</string>
-    <string name="hide">Скрыть</string>
+    <string name="remove_the_tag">Убрать тэг</string>
+
+    <!--  bottom navigation  -->
     <string name="title_home">Главная</string>
     <string name="title_catalog">Каталог</string>
     <string name="title_basket">Корзина</string>
     <string name="title_sales">Акции</string>
     <string name="title_profile">Профиль</string>
+
+    <!--  fragment_cabinet  -->
+    <string name="favorites">Избранное</string>
+    <string name="shops">Магазины</string>
+    <string name="personal_account">Личный кабинет</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="offer">Оферта</string>
+    <string name="return_of_the_product">Возврат товара</string>
+
+    <!--  fragment_catalog  -->
+    <string name="filter_button">Фильтры</string>
+    <string name="sorting">Сортировка</string>
+
+    <!--  expandable text  -->
+    <string name="show_more">Подробнее</string>
+    <string name="hide">Скрыть</string>
+
+    <!--  fragment_favorites  -->
+    <string name="back">Вернуться назад</string>
+    <string name="favorites_title">Избранное</string>
+
+    <!--  recycler_item_catalog_item  -->
+    <string name="add_to_favorites">Добавить в избранное</string>
+    <string name="description">Описание</string>
+    <string name="specifications">Характеристики</string>
+    <string name="composition">Состав</string>
+    <string name="copy">Скопировать</string>
+    <string name="add_to_cart">Добавить корзину</string>
+
+    <!--  fragment information  -->
 </resources>

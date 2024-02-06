@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Личный кабинет "
+        android:text="@string/personal_account"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,13 +18,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/gachi"
+        android:id="@+id/button_1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/button_brend_background"
+        android:background="@drawable/button_brand_background"
         android:orientation="horizontal"
         android:paddingHorizontal="10dp"
         android:paddingVertical="16dp"
@@ -37,10 +37,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="18dp"
+            android:contentDescription="@string/title_profile"
             android:src="@drawable/ic_profile" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -59,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:textColor="@color/category_item"
-                android:textSize="10sp"
+                android:textSize="@dimen/signature_in_the_cabinet"
                 tools:text="A`PIEU" />
         </LinearLayout>
 
@@ -67,34 +68,36 @@
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_gravity="center|end"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/gachi1"
+        android:id="@+id/button_2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/button_brend_background"
+        android:background="@drawable/button_brand_background"
         android:orientation="horizontal"
         android:paddingHorizontal="10dp"
         android:paddingVertical="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gachi">
+        app:layout_constraintTop_toBottomOf="@+id/button_1">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="18dp"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_heart" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -102,9 +105,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/favorites"
                 android:textColor="@color/black"
-                android:textSize="14sp"
-                android:text="Избранное" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/countOfItems"
@@ -112,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:textColor="@color/category_item"
-                android:textSize="10sp"
+                android:textSize="@dimen/signature_in_the_cabinet"
                 tools:text="A`PIEU" />
         </LinearLayout>
 
@@ -120,158 +123,167 @@
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_gravity="center|end"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/gachi2"
+        android:id="@+id/button_3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/button_brend_background"
+        android:background="@drawable/button_brand_background"
         android:orientation="horizontal"
         android:paddingHorizontal="10dp"
         android:paddingVertical="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gachi1">
+        app:layout_constraintTop_toBottomOf="@+id/button_2">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="18dp"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_shop" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="@string/shops"
             android:textColor="@color/black"
-            android:textSize="14sp"
-            android:text="Магазины" />
+            android:textSize="14sp" />
 
         <ImageView
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_gravity="center|end"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/gachi3"
+        android:id="@+id/button_4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/button_brend_background"
+        android:background="@drawable/button_brand_background"
         android:orientation="horizontal"
         android:paddingHorizontal="10dp"
         android:paddingVertical="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gachi2">
+        app:layout_constraintTop_toBottomOf="@+id/button_3">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="18dp"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_chat" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="@string/feedback"
             android:textColor="@color/black"
-            android:textSize="14sp"
-            android:text="Обратная связь" />
+            android:textSize="14sp" />
 
         <ImageView
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_gravity="center|end"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/gachi4"
+        android:id="@+id/button_5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/button_brend_background"
+        android:background="@drawable/button_brand_background"
         android:orientation="horizontal"
         android:paddingHorizontal="10dp"
         android:paddingVertical="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gachi3">
+        app:layout_constraintTop_toBottomOf="@+id/button_4">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="18dp"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_document" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="@string/offer"
             android:textColor="@color/black"
-            android:textSize="14sp"
-            android:text="Оферта " />
+            android:textSize="14sp" />
 
         <ImageView
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_gravity="center|end"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/gachi5"
+        android:id="@+id/button_6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/button_brend_background"
+        android:background="@drawable/button_brand_background"
         android:orientation="horizontal"
         android:paddingHorizontal="10dp"
         android:paddingVertical="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gachi4">
+        app:layout_constraintTop_toBottomOf="@+id/button_5">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="18dp"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_back_item" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="@string/return_of_the_product"
             android:textColor="@color/black"
-            android:textSize="14sp"
-            android:text="Возврат товара" />
+            android:textSize="14sp" />
 
         <ImageView
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_gravity="center|end"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
 
